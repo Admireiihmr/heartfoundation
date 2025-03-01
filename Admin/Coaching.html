@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCSbjez2oI2RP-FnQal--EiXnP3ghsAuzE",
+            authDomain: "red-health-3d881.firebaseapp.com",
+            projectId: "red-health-3d881",
+            storageBucket: "red-health-3d881.firebasestorage.app",
+            messagingSenderId: "162683321988",
+            appId: "1:162683321988:web:5aa21bc2d263dda482ccd1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        let chart; // Store chart instance
+
+        function updateChart(data) {
+            if (chart) {
+                chart.data.datasets[0].data = data.coaching;
+                chart.update(); // Update chart dynamically
+                return;
+            }
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'scatter', // Scatter plot with lines
+                data: {
+                    datasets: [
+                        {
+                            label: 'Coaching',
+                            data: data.coaching,
+                            borderColor: 'yellow',
+                            backgroundColor: 'yellow',
+                            showLine: true,
+                            fill: false,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            min: 0,
+                            max: 10
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function fetchCategoryCounts() {
+            const patientsRef = ref(db, 'patients');
+
+            // Listen for real-time updates
+            onValue(patientsRef, (snapshot) => {
+                let coachingCount = 0;
+                let coachingData = [];
+
+                if (snapshot.exists()) {
+                    const patients = snapshot.val();
+                    Object.values(patients).forEach(patient => {
+                        const q1 = patient.diagnosedHeartCondition === "Yes";
+                        const q2 = patient.undergoneSurgery === "Yes";
+                        const q3 = patient.experiencingSymptoms === "Yes";
+                        const q4 = patient.rehabilitationCare === "Yes";
+                        const q5 = patient.seekingAwareness === "Yes";
+
+                        let addedToCategory = false; // Track if the patient fits a category
+
+                        if (q1 && q2 && q4) {
+                            coachingCount++;
+                            coachingData.push({ x: coachingCount, y: coachingCount + 10 }); // Diagonal effect
+                            addedToCategory = true;
+                        }
+
+                        // If no category matched, do not push data
+                        if (!addedToCategory) {
+                            console.log("No matching category for patient:", patient);
+                        }
+                    });
+                }
+
+                document.getElementById("coaching-count").textContent = coachingCount;
+                
+                updateChart({
+                    coaching: coachingData
+                });
+            });
+        }
+
+        window.onload = fetchCategoryCounts;
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 80%;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .header {
+            background: #e0e0e0;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .stats .stat {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .chart-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Dashboard</div>
+        <div class="chart-container">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="stats">
+            <div class="stat">Coaching: <span id="coaching-count">0</span></div>
+        </div>
+    </div>
+</body>
+</html>

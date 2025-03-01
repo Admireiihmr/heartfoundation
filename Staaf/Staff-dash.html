@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heart Care Connect</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f8f8;
+      }
+      .container {
+        background-color: white;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .status-label {
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-weight: bold;
+        display: inline-block;
+        cursor: pointer;
+      }
+      .awareness {
+        background-color: lightgreen;
+      }
+      .emergency {
+        background-color: red;
+        color: white;
+      }
+      .coaching {
+        background-color: lightblue;
+      }
+      .to-verify {
+        background-color: orange;
+        cursor: pointer;
+      }
+      .spam {
+        background-color: lightcoral;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h2 class="text-center">Heart Care Connect</h2>
+      <button class="btn btn-danger mb-3" onclick="deleteAllPatients()">
+        Delete All Entries
+      </button>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Mobile No.</th>
+            <th>Name</th>
+            <th>Date of Registration</th>
+            <th>Time of Registration</th>
+            <th>Action Points</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="patientTableBody">
+          <!-- Data will be inserted here dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MODAL DIALOG FOR "TO VERIFY" -->
+    <div
+      class="modal fade"
+      id="verificationModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">To Verify - Patient Details</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Name:</strong> <span id="patientName"></span></p>
+            <p><strong>Mobile:</strong> <span id="patientMobile"></span></p>
+            <button class="btn btn-primary" onclick="viewPatientDetails()">
+              View Form
+            </button>
+            <button class="btn btn-secondary" onclick="editPatientForm()">
+              Edit Form
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" onclick="allocatePatient()">
+              Allocate
+            </button>
+            <button class="btn btn-danger" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL FOR FULL PATIENT DETAILS -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Patient Full Information</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body" id="patientDetailsBody"></div>
+          <div class="modal-footer">
+            <button class="btn btn-danger" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT FORM MODAL -->
+    <div class="modal fade" id="editFormModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Patient Details</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label>Name:</label>
+              <input type="text" id="editName" class="form-control" />
+              <label>Mobile:</label>
+              <input type="text" id="editMobile" class="form-control" />
+              <label>Age:</label>
+              <input type="number" id="editAge" class="form-control" />
+              <label>Gender:</label>
+              <input type="text" id="editGender" class="form-control" />
+              <label>Diagnosed Heart Condition:</label>
+              <input type="text" id="editCondition" class="form-control" />
+              <label>Underwent Surgery:</label>
+              <input type="text" id="editSurgery" class="form-control" />
+              <label>Experiencing Symptoms:</label>
+              <input type="text" id="editSymptoms" class="form-control" />
+              <label>Rehabilitation Care:</label>
+              <input type="text" id="editRehab" class="form-control" />
+              <label>Seeking Awareness:</label>
+              <input type="text" id="editAwareness" class="form-control" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" onclick="saveEditedPatient()">
+              Save Changes
+            </button>
+            <button class="btn btn-danger" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL FOR ENTERING WHATSAPP GROUP LINK -->
+    <div class="modal fade" id="whatsappModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Enter WhatsApp Group Link</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <label>WhatsApp Group Link:</label>
+            <input
+              type="text"
+              id="whatsappGroupLink"
+              class="form-control"
+              placeholder="Enter WhatsApp Group Link"
+            />
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" onclick="saveWhatsAppLink()">
+              Save
+            </button>
+            <button class="btn btn-danger" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        get,
+        remove,
+        child,
+        update,
+      } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCSbjez2oI2RP-FnQal--EiXnP3ghsAuzE",
+        authDomain: "red-health-3d881.firebaseapp.com",
+        projectId: "red-health-3d881",
+        storageBucket: "red-health-3d881.firebasestorage.app",
+        messagingSenderId: "162683321988",
+        appId: "1:162683321988:web:5aa21bc2d263dda482ccd1",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      let selectedPatientKey = null;
+
+      // <!-- fetchAndCategorizePatients -->
+
+      async function fetchAndCategorizePatients() {
+  const patientsRef = ref(db, "patients");
+  const snapshot = await get(patientsRef);
+
+  if (snapshot.exists()) {
+    const patients = snapshot.val();
+    const categorizedData = [];
+
+    Object.keys(patients).forEach((key, index) => {
+      const patient = patients[key];
+      const name = `${patient.firstName} ${patient.middleName || ""} ${
+        patient.lastName
+      }`.trim();
+      const mobileNo = patient.contact;
+      const dateOfRegistration = patient.dateRegistered;
+      const timeOfRegistration = patient.timeRegistered;
+
+      // Check if category is already "Allocated", otherwise categorize normally
+      let category = patient.category || "To Verify";
+
+      if (category !== "Allocated") {
+        const q1 =
+          patient.diagnosedHeartCondition?.trim().toLowerCase() === "yes";
+        const q2 = patient.undergoneSurgery?.trim().toLowerCase() === "yes";
+        const q3 = patient.experiencingSymptoms?.trim().toLowerCase() === "yes";
+        const q4 = patient.rehabilitationCare?.trim().toLowerCase() === "yes";
+        const q5 = patient.seekingAwareness?.trim().toLowerCase() === "yes";
+
+        if ((!q1 && !q2 && !q3 && !q4 && !q5) || (q1 && q2 && q3 && q4 && q5)) {
+          category = "Spam";
+        } else if (q5 && !q1 && !q2 && !q3 && !q4) {
+          category = "Awareness";
+        } else if (q1 && q3) {
+          category = "Emergency";
+        } else if (q1 && q2 && q4) {
+          category = "Coaching";
+        }
+      }
+
+      categorizedData.push({
+        index: index + 1,
+        mobileNo,
+        name,
+        dateOfRegistration,
+        timeOfRegistration,
+        category,
+        key,
+      });
+    });
+
+    displayCategorizedData(categorizedData);
+  } else {
+    console.log("No patient data found.");
+  }
+}
+
+
+      // <!-- displayCategorizedData -->
+
+      function displayCategorizedData(data) {
+  const tableBody = document.getElementById("patientTableBody");
+  tableBody.innerHTML = "";
+
+  data.forEach((patient) => {
+    let categoryClass = patient.category.toLowerCase().replace(" ", "-");
+    let categoryLabel = `<span class="status-label ${categoryClass}" onclick="openWhatsAppModal('${patient.key}', '${patient.mobileNo}')">${patient.category}</span>`;
+
+    if (patient.category === "To Verify") {
+      categoryLabel = `<span class="status-label to-verify" onclick="showVerificationModal('${patient.key}', '${patient.name}', '${patient.mobileNo}')">${patient.category}</span>`;
+    } else if (patient.category === "Allocated") {
+      categoryLabel = `<span class="status-label bg-success text-white">${patient.category}</span>`;
+    }
+
+    const row = `
+      <tr>
+        <td>${patient.index}</td>
+        <td>${patient.mobileNo}</td>
+        <td>${patient.name}</td>
+        <td>${patient.dateOfRegistration}</td>
+        <td>${patient.timeOfRegistration}</td>
+        <td>${categoryLabel}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="deletePatient('${patient.key}')">Delete</button></td>
+      </tr>
+    `;
+
+    tableBody.innerHTML += row;
+  });
+}
+
+
+
+
+
+       // <!-- ShowVerificationModal-->
+      
+
+      window.showVerificationModal = function (patientId, name, mobileNo) {
+        selectedPatientKey = patientId;
+        document.getElementById("patientName").textContent = name;
+        document.getElementById("patientMobile").textContent = mobileNo;
+        new bootstrap.Modal(
+          document.getElementById("verificationModal")
+        ).show();
+      };
+
+
+
+ // <!-- AllocatePatientModel-->
+
+
+      window.allocatePatient = async function () {
+        if (!selectedPatientKey) return;
+
+        await update(ref(db, `patients/${selectedPatientKey}`), {
+          category: "Allocate",
+        });
+
+        // Get the selected patient's mobile number
+        let patientMobile = document
+          .getElementById("patientMobile")
+          .textContent.trim();
+
+        // Update the table row
+        const rows = document.querySelectorAll("#patientTableBody tr");
+        rows.forEach((row) => {
+          const mobileCell = row.cells[1].textContent.trim();
+          if (mobileCell === patientMobile) {
+            const categoryCell = row.cells[5]; // Action Points column
+            categoryCell.innerHTML = `<span class="status-label bg-success text-white">Allocate</span>`;
+          }
+        });
+
+        // Open WhatsApp modal after allocation
+        openWhatsAppModal(selectedPatientKey, patientMobile);
+
+        // Close the verification modal
+        bootstrap.Modal.getInstance(
+          document.getElementById("verificationModal")
+        ).hide();
+      };
+
+
+
+
+       // <!-- ViewPatirntDtailsModal-->
+
+      window.viewPatientDetails = async function () {
+        // Reference to the selected patient in Firebase
+        const patientRef = ref(db, `patients/${selectedPatientKey}`);
+
+        // Fetch patient data from Firebase
+        const snapshot = await get(patientRef);
+        if (snapshot.exists()) {
+          const patient = snapshot.val();
+
+          // Construct HTML for displaying patient details
+          const detailsHtml = `
+      <p><strong>Name:</strong> ${patient.firstName} ${
+            patient.middleName || ""
+          } ${patient.lastName}</p>
+      <p><strong>Contact:</strong> ${patient.contact}</p>
+      <p><strong>Age:</strong> ${patient.age}</p>
+      <p><strong>Gender:</strong> ${patient.gender}</p>
+      <p><strong>Diagnosed Heart Condition:</strong> ${
+        patient.diagnosedHeartCondition
+      }</p>
+      <p><strong>Undergone Surgery:</strong> ${patient.undergoneSurgery}</p>
+      <p><strong>Experiencing Symptoms:</strong> ${
+        patient.experiencingSymptoms
+      }</p>
+      <p><strong>Rehabilitation Care:</strong> ${patient.rehabilitationCare}</p>
+      <p><strong>Seeking Awareness:</strong> ${patient.seekingAwareness}</p>
+      
+    `;
+
+          // Insert the details into the modal body
+          document.getElementById("patientDetailsBody").innerHTML = detailsHtml;
+
+          // Show the modal
+          new bootstrap.Modal(document.getElementById("detailsModal")).show();
+        } else {
+          alert("Patient details not found.");
+        }
+      };
+
+
+       // <!-- editpatirntFormModal-->
+
+      window.editPatientForm = async function () {
+        if (!selectedPatientKey) return;
+        const snapshot = await get(ref(db, `patients/${selectedPatientKey}`));
+        if (snapshot.exists()) {
+          const patient = snapshot.val();
+          document.getElementById("editName").value = `${patient.firstName} ${
+            patient.middleName || ""
+          } ${patient.lastName}`;
+          document.getElementById("editMobile").value = patient.contact;
+          document.getElementById("editAge").value = patient.age || "";
+          document.getElementById("editGender").value = patient.gender || "";
+          document.getElementById("editCondition").value =
+            patient.diagnosedHeartCondition || "";
+          document.getElementById("editSurgery").value =
+            patient.undergoneSurgery || "";
+          document.getElementById("editSymptoms").value =
+            patient.experiencingSymptoms || "";
+          document.getElementById("editRehab").value =
+            patient.rehabilitationCare || "";
+          document.getElementById("editAwareness").value =
+            patient.seekingAwareness || "";
+          new bootstrap.Modal(document.getElementById("editFormModal")).show();
+        }
+      };
+
+
+       // <!-- SvedEditformModel-->
+
+      window.saveEditedPatient = async function () {
+        const updatedPatient = {
+          firstName: document.getElementById("editName").value.split(" ")[0],
+          middleName:
+            document.getElementById("editName").value.split(" ")[1] || "",
+          lastName:
+            document.getElementById("editName").value.split(" ")[2] || "",
+          contact: document.getElementById("editMobile").value,
+          age: document.getElementById("editAge").value,
+          gender: document.getElementById("editGender").value,
+          diagnosedHeartCondition:
+            document.getElementById("editCondition").value,
+          undergoneSurgery: document.getElementById("editSurgery").value,
+          experiencingSymptoms: document.getElementById("editSymptoms").value,
+          rehabilitationCare: document.getElementById("editRehab").value,
+          seekingAwareness: document.getElementById("editAwareness").value,
+        };
+
+        await update(ref(db, `patients/${selectedPatientKey}`), updatedPatient);
+        alert("Patient information updated successfully.");
+        bootstrap.Modal.getInstance(
+          document.getElementById("editFormModal")
+        ).hide();
+      };
+
+
+
+       // <!--deletePatientFormModel-->
+
+      window.deletePatient = async function (key) {
+        if (confirm("Are you sure you want to delete this entry?")) {
+          await remove(ref(db, "patients/" + key));
+          alert("Patient entry deleted successfully.");
+          fetchAndCategorizePatients();
+        }
+      };
+
+       // <!-- DeleteAllPatienModel-->
+
+      window.deleteAllPatients = async function () {
+        if (confirm("Are you sure you want to delete all entries?")) {
+          await remove(ref(db, "patients"));
+          alert("All patient entries have been deleted.");
+          fetchAndCategorizePatients();
+        }
+      };
+
+      let selectedPatientForWhatsApp = null;
+
+      let selectedPatientKeyForWhatsApp = null;
+      let selectedPatientMobile = null;
+
+      window.openWhatsAppModal = function (patientKey, mobileNo) {
+        selectedPatientKeyForWhatsApp = patientKey;
+        selectedPatientMobile = mobileNo;
+        document.getElementById("whatsappGroupLink").value = ""; // Clear input field
+        new bootstrap.Modal(document.getElementById("whatsappModal")).show();
+      };
+
+
+
+       // <!--SaveWhatsappLinkModel-->
+
+      window.saveWhatsAppLink = async function () {
+        const whatsappLink = document
+          .getElementById("whatsappGroupLink")
+          .value.trim();
+
+        if (!whatsappLink) {
+          alert("Please enter a valid WhatsApp group link.");
+          return;
+        }
+
+        // Save the WhatsApp link and update the category to "Allocated"
+        await update(ref(db, `patients/${selectedPatientKeyForWhatsApp}`), {
+          whatsappGroupLink: whatsappLink,
+          category: "Allocated", // Update category in Firebase
+        });
+
+        alert(
+          "WhatsApp group link saved successfully. Patient status updated to 'Allocated'."
+        );
+
+        // Open WhatsApp chat with the patient including the group link
+        const message = encodeURIComponent(
+          `Dear Patient, you have been allocated. Please join our WhatsApp group here: ${whatsappLink}`
+        );
+        const whatsappUrl = `https://wa.me/${selectedPatientMobile}?text=${message}`;
+        window.open(whatsappUrl, "_blank");
+
+        // Update the UI to reflect the new category status
+        const rows = document.querySelectorAll("#patientTableBody tr");
+        rows.forEach((row) => {
+          const mobileCell = row.cells[1].textContent.trim();
+          if (mobileCell === selectedPatientMobile) {
+            const categoryCell = row.cells[5]; // Category column
+            categoryCell.innerHTML = `<span class="status-label bg-success text-white">Allocated</span>`;
+          }
+        });
+
+        // Close the modal after saving
+        bootstrap.Modal.getInstance(
+          document.getElementById("whatsappModal")
+        ).hide();
+      };
+
+
+
+      //load Model   full code 
+
+      window.onload = fetchAndCategorizePatients;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

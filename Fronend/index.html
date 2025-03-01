@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heart Care Connect</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      #disedildown {
+        margin-top: 200px;
+        font-size: 35px;
+        color: red;
+      }
+      body {
+        background-color: white;
+        display: flex;
+        align-items: center;
+      }
+      .container {
+        /* background-color: #f9fbfc;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .left-section {
+        background-color: white;
+        padding: 20px;
+        max-height: 185vh; /* Adjust the height as needed */
+        overflow-y: auto; /* Enables vertical scrolling */
+        padding-right: 10px; /* Optional: Prevents content from hiding under scrollbar */
+        text-align: center;
+      }
+      /* Optional: Custom Scrollbar Styling */
+      .left-section::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .left-section::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      .left-section::-webkit-scrollbar-thumb:hover {
+        background: #a71d1d;
+      }
+      .right-section {
+        padding: 20px;
+      }
+      h2 {
+        color: #d10000;
+        text-align: center;
+      }
+      .red {
+        color: #a00000;
+      }
+      button {
+        width: 100%;
+        background-color: #d10000;
+        color: white;
+      }
+      button:hover {
+        background-color: #a00000;
+      }
+      .container {
+        display: flex;
+        align-items: center;
+      }
+      .content {
+        background-color: #f2d5db;
+        padding: 30px;
+        border-radius: 5px;
+        width: 350px;
+      }
+      .title {
+        font-size: 30px; /* Increase size */
+        font-weight: bold;
+      }
+      .subtitle {
+        font-size: 12px;
+        color: #444;
+        display: block;
+      }
+      .menu {
+        margin-left: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-left: 400px;
+        margin-top: -140px;
+      }
+      .menu-item {
+        background-color: #e7ffe7;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-weight: bold;
+        display: block;
+        text-align: center;
+        width: 100px;
+      }
+      .webImageHead {
+        margin-top: 20px;
+        background-color: #e6abb7;
+        font-size: 25px;
+      }
+      .banner {
+      position: relative;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+    }
+
+    .banner-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      max-height: 400px;
+      filter: brightness(70%);
+    }
+
+    .banner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    @media (max-width: 768px) {
+      .banner-text {
+        font-size: 1.5rem;
+      }
+    }
+      .dilsedil {
+        display: flex;
+        margin-left: 0px;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+      }
+      .vision {
+        margin-top: 10px;
+        margin-bottom: 100px;
+      }
+      .img-vision {
+        margin-top: 30px;
+      }
+      .visiontext {
+        margin-top: 30px;
+        font-weight: bold;
+        font-size: 25px;
+      }
+      .mission {
+        margin-top: 10px;
+      }
+      .img-mission {
+        margin-top: 30px;
+      }
+      .missiontext {
+        margin-top: 30px;
+        font-weight: bold;
+        font-size: 25px;
+      }
+      .headlogo {
+        margin-right: 40px;
+        gap: 120px;
+      }
+      .custom-box {
+        padding: 20px;
+        border-radius: 10px;
+        text-align: justify;
+      }
+      .light-red {
+        background-color: #ffe6e6;
+      }
+      .highlight {
+        font-weight: bold;
+      }
+      .image-container img {
+        height: 100%;
+        width: auto;
+        max-height: 500px;
+        object-fit: cover;
+      }
+      .footer {
+            background-color: #fff;
+            color: black;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-text {
+            flex: 1;
+            text-align: start;
+            padding-left: 60px;
+        }
+        .footer img {
+            width: 170px;
+            height: auto;
+            margin: 0 10px;
+        }
+        .footer-images {
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+
+        .port{
+          font-weight: bold;  /* Makes text bold */
+    font-size: 18px;    /* Adjusts font size */
+    font-family: Arial, sans-serif;  /* Uses a professional font */
+    color: #333;  /* Dark gray for readability */
+    text-transform: capitalize;  /* Capitalizes first letter of each word */
+    letter-spacing: 1px;  /* Adds spacing between letters */
+    padding-left: 20px;
+        }
+    </style>
+    </style>
+  </head>
+  <body>
+    <div class="container mt-2 p-2">
+      <div class="row">
+        <div class="col-md-8 left-section">
+          <div class="headlogo">
+            <!-- <img
+              src="cropped-IIHMR-Logo-03.png"
+              alt=""
+              width="250"
+              height="90"
+              style="margin-top: 30px"
+            /> -->
+            <img src="hhif logo123.png" alt="" width="200" height="150"  style="justify-content: center;"/>
+            <!-- <img
+              src="admire.png"
+              alt=""
+              width="200"
+              height="150"
+              style="margin-top: 20px"
+            /> -->
+          </div>
+
+          <div class="banner">
+            <img
+              src="webimagehhif.avif"
+              alt="Join Patient Support Group"
+              class="banner-image img-fluid"
+            />
+            <h1 class="banner-text">Join Patient Support Group</h1>
+          </div>
+        
+          <div class="container mt-5">
+            <div class="row">
+              <div class="col-md-6">
+                <img
+                  src="heart_warrior.jpg"
+                  alt="Heart Warriors"
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col-md-6">
+                <h6 class="text-muted">
+                  Join the India Heart Warriors Support Group
+                </h6>
+                <h2 class="fw-bold">
+                  A Safe Space for Heart Patients & Their Families
+                  <span class="text-danger">💖</span>
+                </h2>
+                <p>
+                  Being diagnosed with a heart condition can be overwhelming.
+                  Whether it’s a
+                  <span class="highlight"
+                    >heart attack, heart failure, arrhythmia, valve disease,
+                    congenital heart disease</span
+                  >, or any other heart-related condition, you are not alone.
+                  <span class="highlight">India Heart Warriors</span> is a
+                  <span class="highlight">close door community</span> where
+                  heart patients and their families come together to support,
+                  guide, and uplift each other.
+                </p>
+                <p>
+                  <span class="text-danger">❌ No medical advice</span> - Just
+                  real conversations with real people who truly understand what
+                  you're going through.
+                </p>
+                <p>
+                  <span class="text-success"
+                    >✅ A community built on empathy, shared experiences, and
+                    emotional support.</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="container mt-4">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <div class="custom-box">
+                  <h5 class="text-danger fw-bold">Why Should You Join?</h5>
+                  <ul class="list-unstyled">
+                    <li>
+                      ✅ You are NOT alone-Connect with people who have walked
+                      in your shoes.
+                    </li>
+                    <li>
+                      ✅ Learn from real experiences-Get insights from people
+                      managing similar conditions.
+                    </li>
+                    <li>
+                      ✅ Ask, share & discuss-Talk openly about your challenges
+                      and victories.
+                    </li>
+                    <li>
+                      ✅ Build lifelong friendships-Find understanding, comfort,
+                      and support.
+                    </li>
+                    <li>
+                      ✅ Completely free-A philanthropic initiative by Heart
+                      Health India Foundation to help heart patients and their
+                      families.
+                    </li>
+                  </ul>
+                  <p>
+                    Your journey deserves a strong support system-Join Today!
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="custom-box border light-red">
+                  <h5 class="text-danger fw-bold">Who Should Join?</h5>
+                  <ul class="list-unstyled">
+                    <li>
+                      ✅ Newly Diagnosed Patients: If you've recently been
+                      diagnosed with a heart disease and feel lost, this group
+                      is here to help.
+                    </li>
+                    <li>
+                      ✅ Long-Term Heart Patients: If you've been living with a
+                      heart condition and want to share your knowledge to
+                      support others, join us.
+                    </li>
+                    <li>
+                      ✅ Family Members & Caregivers: If you care for a loved
+                      one with a heart condition and need a space to connect,
+                      this is for you.
+                    </li>
+                    <li>
+                      ✅ Curious Learners: If you're interested in learning from
+                      others about how to navigate life after a heart condition,
+                      be part of this journey.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="custom-box">
+                  <h5 class="text-danger fw-bold">
+                    What Makes This Group Special?
+                  </h5>
+                  <ul class="list-unstyled">
+                    <li>
+                      ✅ A Safe & Private Space-This is a closed group
+                      exclusively for heart patients and their families.
+                    </li>
+                    <li>
+                      ✅ Emotional Support First-The focus is on peer support,
+                      not medical guidance.
+                    </li>
+                    <li>
+                      ✅ Engaging Discussions-Real conversations from people who
+                      understand your journey.
+                    </li>
+                    <li>
+                      ✅ Inspiring Stories-Learn from those who have navigated
+                      similar challenges.
+                    </li>
+                    <li>
+                      ✅ A Judgment-Free Community-Open, respectful, and full of
+                      encouragement.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container mt-5">
+            <div class="row">
+              <div class="col-md-6">
+                <img src="jodi.jpg" alt="Heart Warriors" class="img-fluid" />
+              </div>
+              <div class="col-md-6">
+                <h6 class="text-muted">
+                  Join the India Heart Warriors Support Group
+                </h6>
+                <h2 class="fw-bold">
+                  A Safe Space for Heart Patients & Their Families
+                  <span class="text-danger">💖</span>
+                </h2>
+                <p>
+                  Since this is a
+                  <span class="highlight">firewalled group</span>, you'll need
+                  to
+                  <span class="highlight"
+                    >fill out a quick registration form</span
+                  >
+                  to become a member.
+                </p>
+                <ul>
+                  <li>
+                    <strong>Step 1:</strong> Click on the link below and
+                    complete the registration form.
+                  </li>
+                  <li>
+                    <strong>Step 2:</strong> Our team will review your request
+                    to ensure the group remains exclusive to heart patients and
+                    their families.
+                  </li>
+                  <li>
+                    <strong>Step 3:</strong> Once approved, you'll receive an
+                    invitation to join the private group.
+                  </li>
+                </ul>
+                <p>
+                  <span class="text-danger">❌ No medical advice</span> – Just
+                  real conversations with real people who truly understand what
+                  you’re going through.
+                </p>
+                <p>
+                  <span class="text-success"
+                    >✅ A community built on empathy, shared experiences, and
+                    emotional support.</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 right-section">
+          <h2>Patient Registration Form</h2>
+          <form id="patientForm">
+            <div class="mb-2">
+              <label class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="first-name"
+                maxlength="15"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Middle Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="middle-name"
+                maxlength="15"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="last-name"
+                maxlength="15"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Age</label>
+              <input type="number" class="form-control" name="age" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Gender</label>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="gender"
+                  class="form-check-input"
+                  value="Male"
+                />
+                Male
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="gender"
+                  class="form-check-input"
+                  value="Female"
+                />
+                Female
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="gender"
+                  class="form-check-input"
+                  value="Other"
+                />
+                Other
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Contact No</label>
+              <input type="text" class="form-control" name="contact" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email ID (Optional)</label>
+              <input type="email" class="form-control" name="email" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Pin Code</label>
+              <input type="text" class="form-control" name="pincode" id="pincode" required pattern="^\d{6}$" title="Enter a valid 6-digit pin code" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">City</label>
+              <input type="text" class="form-control" name="city" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">State/UT</label>
+              <select class="form-control" name="state" id="stateDropdown">
+                <option value="" disabled selected>Select State/UT</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"
+                >How did you come to know about Heart Health India
+                Foundation?</label
+              >
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="enroll1"
+                  class="form-check-input"
+                  value="Social Media"
+                  id="socialMediaRadio"
+                />
+                Social Media
+              </div>
+              <select
+                id="socialMediaDropdown"
+                class="form-control mt-2"
+                style="display: none"
+              >
+                <option value="">Select Platform</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Youtube">Youtube</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="LinkedIn">LinkedIn</option>
+              </select>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="enroll1"
+                  class="form-check-input"
+                  value="Event"
+                />
+                Event
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="enroll1"
+                  class="form-check-input"
+                  value=" referral"
+                />
+                referral
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"
+                >Are you enrolling for self or a relative?</label
+              >
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="enroll2"
+                  class="form-check-input"
+                  value="Self"
+                />
+                Self
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="enroll2"
+                  class="form-check-input"
+                  value="Relative"
+                />
+                Relative
+              </div>
+            </div>
+            <!-- //q1 -->
+            <div class="mb-3">
+              <label class="form-label"
+                >Have you/ your relative ever been diagnosed with a heart
+                condition?</label
+              >
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="diagnosedHeartCondition"
+                  class="form-check-input"
+                  value="yes"
+                />
+                Yes
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="diagnosedHeartCondition"
+                  class="form-check-input"
+                  value="No"
+                />
+                No
+              </div>
+            </div>
+            <!-- Hidden section -->
+            <div id="additionalQuestion" style="display: none">
+              <label class="form-label">
+                What type of heart disease or health condition has the patient
+                experienced?
+              </label>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition1"
+                />
+                <label for="condition1">Angina</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition2"
+                />
+                <label for="condition2">Arrhythmia</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition3"
+                />
+                <label for="condition3">Cardiomyopathy</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition4"
+                />
+                <label for="condition4">Congenital Heart Disease</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition5"
+                />
+                <label for="condition5">Heart Attack</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition6"
+                />
+                <label for="condition6">Heart Failure</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition7"
+                />
+                <label for="condition7">Heart Valve Disease</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition8"
+                />
+                <label for="condition8">Other Rare Heart Disease</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition9"
+                />
+                <label for="condition9">Other</label>
+              </div>
+              <label class="form-label">
+                Is the patient living with any co-morbidities?
+              </label>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition10"
+                />
+                <label for="condition10">Elevated Cholesterol</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition11"
+                />
+                <label for="condition11">Hypertension</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition12"
+                />
+                <label for="condition12">Diabetes</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition13"
+                />
+                <label for="condition13">Congenital Heart Disease</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition14"
+                />
+                <label for="condition14">Obesity</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition15"
+                />
+                <label for="condition15"
+                  >Family History of Heart Diseases</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condition16"
+                />
+                <label for="condition16">Other</label>
+              </div>
+              <label class="form-label">
+                In which year, was patient first diagnosed?
+              </label>
+              <div class="mb-3">
+                <input type="date" class="form-control" id="condition17" />
+              </div>
+            </div>
+            <!-- //q2 -->
+            <div class="mb-3">
+              <label class="form-label"
+                >Have you/ your relative undergone any heart-related procedure
+                or surgery in the past?</label
+              >
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="undergoneSurgery"
+                  class="form-check-input"
+                  value="yes"
+                />
+                Yes
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="undergoneSurgery"
+                  class="form-check-input"
+                  value="No"
+                />
+                No
+              </div>
+            </div>
+            <!-- //q3 -->
+            <div class="mb-3">
+              <label class="form-label"
+                >Are you/ your relative currently experiencing any symptoms that
+                might require immediate medical attention (e.g., chest pain,
+                shortness of breath)?</label
+              >
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="experiencingSymptoms"
+                  class="form-check-input"
+                  value="Yes"
+                />
+                Yes
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="experiencingSymptoms"
+                  class="form-check-input"
+                  value="No"
+                />
+                No
+              </div>
+            </div>
+            <!-- //q4 -->
+            <div class="mb-3">
+              <label class="form-label"
+                >Are you/ your relative currently undergoing any rehabilitation
+                or post-surgery care for your/relative's heart?</label
+              >
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="rehabilitationCare"
+                  class="form-check-input"
+                  value="Yes"
+                />
+                Yes
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="rehabilitationCare"
+                  class="form-check-input"
+                  value="No"
+                />
+                No
+              </div>
+            </div>
+            <!-- //q5 -->
+            <div class="mb-3">
+              <label class="form-label"
+                >Are you/ your relative looking for general heart health
+                awareness and preventive tips?</label
+              >
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="seekingAwareness"
+                  class="form-check-input"
+                  value="Yes"
+                />
+                Yes
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  name="seekingAwareness"
+                  class="form-check-input"
+                  value="No"
+                />
+                No
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-danger">SUBMIT</button>
+          </form>
+          
+        </div>
+        <footer class="footer">
+          <div class="footer-images">
+              <img src="cropped-IIHMR-Logo-03.png" alt="Image 1">
+          </div>
+          <div class="footer-text">
+            <p class="mb-0 text-centre">
+              &copy; 2025-26 IIHMR Bangalore ADMIRE Centre for Advancing Digital Health.
+              All rights reserved.  <b class="port">Powered By</b>
+            </p>
+    
+          </div>
+          <div class="footer-images">
+              <img src="admirebg.png" alt="Image 2">
+          </div>
+      </footer>
+      </div>
+    </div>
+
+    
+
+    
+
+
+
+
+    <script type="module">
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+        child,
+      } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCSbjez2oI2RP-FnQal--EiXnP3ghsAuzE",
+        authDomain: "red-health-3d881.firebaseapp.com",
+        projectId: "red-health-3d881",
+        storageBucket: "red-health-3d881.firebasestorage.app",
+        messagingSenderId: "162683321988",
+        appId: "1:162683321988:web:5aa21bc2d263dda482ccd1",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+
+
+      const statesAndUTs = [
+    "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar",
+    "Chandigarh", "Chhattisgarh", "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Goa",
+    "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Ladakh",
+    "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
+    "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu",
+    "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
+  ];
+
+  const stateDropdown = document.getElementById("stateDropdown");
+
+  statesAndUTs.forEach(state => {
+    let option = document.createElement("option");
+    option.value = state;
+    option.textContent = state;
+    stateDropdown.appendChild(option);
+  });
+
+      document
+        .querySelectorAll('input[name="diagnosedHeartCondition"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", function () {
+            if (this.value === "yes") {
+              document.getElementById("additionalQuestion").style.display =
+                "block";
+            } else {
+              document.getElementById("additionalQuestion").style.display =
+                "none";
+              document.getElementById("additionalQuestion").value = ""; // Reset dropdown selection
+            }
+          });
+        });
+
+     
+      document.querySelectorAll('input[name="enroll1"]').forEach((radio) => {
+        radio.addEventListener("change", function () {
+          if (this.value === "Social Media") {
+            document.getElementById("socialMediaDropdown").style.display =
+              "block";
+          } else {
+            document.getElementById("socialMediaDropdown").style.display =
+              "none";
+            document.getElementById("socialMediaDropdown").value = ""; // Reset dropdown selection
+          }
+        });
+      });
+
+      // Handle form submission
+      const form = document.getElementById("patientForm");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+         // Capture the current date and time at submission
+  const regDate = new Date();
+  const dateOfRegistration = regDate.toLocaleDateString();
+  const timeOfRegistration = regDate.toLocaleTimeString();
+
+
+        // Collect form data
+        const firstName = document.querySelector(
+          'input[name="first-name"]'
+        ).value;
+        const middleName = document.querySelector(
+          'input[name="middle-name"]'
+        ).value;
+        const lastName = document.querySelector(
+          'input[name="last-name"]'
+        ).value;
+        const age = document.querySelector('input[name="age"]').value;
+        const gender = document.querySelector(
+          'input[name="gender"]:checked'
+        )?.value;
+        const contact = document
+          .querySelector('input[name="contact"]')
+          .value.trim(); // Trim spaces
+        const email = document.querySelector('input[name="email"]').value;
+        const pincode = document.querySelector('input[name="pincode"]').value;
+        const city = document.querySelector('input[name="city"]').value;
+        const stateDropdown = document.getElementById(
+          "stateDropdown"
+        ).value;
+
+        
+
+        // Additional fields
+        const source = document.querySelector(
+          'input[name="enroll1"]:checked'
+        )?.value;
+        const socialMediaPlatform = document.getElementById(
+          "socialMediaDropdown"
+        ).value;
+        const enrollType = document.querySelector(
+          'input[name="enroll2"]:checked'
+        )?.value;
+        const diagnosedHeartCondition = document.querySelector(
+          'input[name="diagnosedHeartCondition"]:checked'
+        )?.value; //Q1
+        const undergoneSurgery = document.querySelector(
+          'input[name="undergoneSurgery"]:checked'
+        )?.value; //Q2
+        const experiencingSymptoms = document.querySelector(
+          'input[name="experiencingSymptoms"]:checked'
+        )?.value; //Q3
+        const rehabilitationCare = document.querySelector(
+          'input[name="rehabilitationCare"]:checked'
+        )?.value; //Q4
+        const seekingAwareness = document.querySelector(
+          'input[name="seekingAwareness"]:checked'
+        )?.value; //Q5
+
+        // Collect checkbox values for heart conditions
+        const heartConditions = {};
+        document
+          .querySelectorAll('#additionalQuestion input[type="checkbox"]')
+          .forEach((checkbox, index) => {
+            // Heart conditions are in the first 9 checkboxes
+            if (index < 9 && checkbox.checked) {
+              heartConditions[checkbox.id] =
+                checkbox.nextElementSibling.textContent.trim();
+            }
+          });
+
+        // Collect checkbox values for co-morbidities
+        const comorbidities = {};
+        document
+          .querySelectorAll('#additionalQuestion input[type="checkbox"]')
+          .forEach((checkbox, index) => {
+            // Co-morbidities start from the 10th checkbox onward
+            if (index >= 9 && checkbox.checked) {
+              comorbidities[checkbox.id] =
+                checkbox.nextElementSibling.textContent.trim();
+            }
+          });
+        // Collect diagnosis year
+        const diagnosisYear = document.querySelector(
+          '#additionalQuestion input[type="date"]'
+        ).value;
+
+        // Ensure contact number is entered
+        if (!contact) {
+          alert("Please enter a valid contact number.");
+          return;
+        }
+
+        try {
+          const patientsRef = ref(db, "patients");
+          const snapshot = await get(child(patientsRef, contact));
+
+          if (snapshot.exists()) {
+            alert("A patient with this contact number already exists.");
+            return;
+          }
+
+          // Create object to store in Firebase
+          const patientData = {
+            firstName,
+            middleName,
+            lastName,
+            age,
+            gender,
+            contact,
+            email,
+            pincode,
+            city,
+            enrollType,
+            diagnosedHeartCondition,
+            undergoneSurgery,
+            experiencingSymptoms,
+            rehabilitationCare,
+            seekingAwareness,
+            source,
+            dateRegistered: dateOfRegistration,
+      timeRegistered: timeOfRegistration,
+            state: stateDropdown,
+            socialMediaPlatform:
+              source === "Social Media" ? socialMediaPlatform : "",
+            diagnosisYear:
+              diagnosedHeartCondition === "yes" ? diagnosisYear : "",
+          };
+
+          // Store data in Firebase under 'patients/{contact}'
+          const newPatientRef = ref(db, "patients/" + contact);
+          await set(newPatientRef, patientData);
+
+          // Store heart conditions separately
+          if (
+            diagnosedHeartCondition === "yes" &&
+            Object.keys(heartConditions).length > 0
+          ) {
+            await set(
+              ref(db, `patients/${contact}/heartConditions`),
+              heartConditions
+            );
+          }
+
+          // Store co-morbidities separately
+          if (Object.keys(comorbidities).length > 0) {
+            await set(
+              ref(db, `patients/${contact}/comorbidities`),
+              comorbidities
+            );
+          }
+
+          alert("Patient data successfully submitted!");
+          form.reset(); // Reset form after submission
+        } catch (error) {
+          console.error("Error writing to Firebase Database:", error);
+          alert("There was an error submitting your data. Please try again.");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card p-4 shadow" style="width: 350px;">
+        <h2 class="text-center mb-4">Staff Login</h2>
+        <form id="login-form">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <p id="error-message" class="text-danger text-center mt-3" style="display: none;">Invalid email or password.</p>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB300mbXaaEaVD0cn0IAhZKvty_Bma76pw",
+            authDomain: "staff-data-heart-foundation.firebaseapp.com",
+            projectId: "staff-data-heart-foundation",
+            storageBucket: "staff-data-heart-foundation.appspot.com",
+            messagingSenderId: "401985776249",
+            appId: "1:401985776249:web:f15e2f628ea4ae72c0c2a8",
+            measurementId: "G-FTNGR8N412"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        document.getElementById("login-form").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const errorMessage = document.getElementById("error-message");
+
+            // Get all users from Firebase
+            const usersRef = ref(database, "users");
+            const snapshot = await get(usersRef);
+
+            if (snapshot.exists()) {
+                let validUser = null;
+                snapshot.forEach(childSnapshot => {
+                    let user = childSnapshot.val();
+                    if (user.email === email && user.password === password) {
+                        validUser = user;
+                    }
+                });
+
+                if (validUser) {
+                    alert("Login successful!");
+                    window.location.href = "Staff-dash.html"; // Redirect to staff dashboard
+                } else {
+                    errorMessage.style.display = "block";
+                }
+            } else {
+                errorMessage.style.display = "block";
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
